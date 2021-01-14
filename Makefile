@@ -1,7 +1,7 @@
 build:
 	docker build ./hexbase -t hex/base
 	docker build ./hex_node -t hex/node
-	# docker build ./hex_nvm -t hex/nvm
+	docker build ./hex_nvm -t hex/nvm
 	docker build ./hex_php -t hex/php
 
 base:
@@ -9,6 +9,9 @@ base:
 
 node:
 	docker run -it hex/node /bin/bash
+
+nvm:
+	docker run -it hex/nvm /bin/bash
 
 php:
 	docker run -it hex/php /bin/bash
