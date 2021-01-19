@@ -22,7 +22,4 @@ COPY .vimrc /root
 USER hex
 WORKDIR /home/hex
 
-COPY --chown=hex:hex .bash_aliases /home/hex/
-COPY --chown=hex:hex .gitconfig /home/hex/
-COPY --chown=hex:hex .vimrc /home/hex/
-COPY --chown=hex:hex .config /home/hex/.config
+COPY --chown=hex:hex .bash_aliases .gitconfig .vimrc /home/hex/
