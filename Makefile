@@ -1,17 +1,19 @@
-build:
+IMAGE?=base
+
+build: build-base build-node
+	# docker build ./hex_nvm -t hex/nvm
+	# docker build ./hex_php -t hex/php
+build-base:
 	docker build ./hexbase -t hex/base
+build-node:
 	docker build ./hex_node -t hex/node
-	docker build ./hex_nvm -t hex/nvm
-	docker build ./hex_php -t hex/php
+
+#run
 
 base:
-	docker run -it hex/base /bin/bash
-
+	docker run --rm -it \
+		--name hexlet_asciinema \
+		-v $(CURDIR)/hexbase/.config:/home/hex/.config \
+		hex/$(IMAGE) /bin/bash
 node:
-	docker run -it hex/node /bin/bash
-
-nvm:
-	docker run -it hex/nvm /bin/bash
-
-php:
-	docker run -it hex/php /bin/bash
+	make base IMAGE=node
