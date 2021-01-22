@@ -1,14 +1,13 @@
 IMAGE?=base
 
-build: build-base build-node
-	# docker build ./hex_nvm -t hex/nvm
-	# docker build ./hex_php -t hex/php
+build: build-base build-node build-php
+
 build-base:
 	docker build ./hexbase -t hex/base
 build-node:
 	docker build ./hex_node -t hex/node
-
-#run
+build-php:
+	docker build ./hex_php -t hex/php
 
 base:
 	docker run --rm -it \
@@ -17,3 +16,6 @@ base:
 		hex/$(IMAGE) /bin/bash
 node:
 	make base IMAGE=node
+
+php:
+	make base IMAGE=php
