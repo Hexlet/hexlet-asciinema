@@ -1,8 +1,5 @@
 FROM hex/base
 
-USER hex
-WORKDIR /home/hex
-
 RUN sudo apt-add-repository ppa:ondrej/php
 RUN sudo apt-get update
 RUN sudo apt-get install -yq php
