@@ -14,11 +14,11 @@ RUN pip3 install asciinema
 RUN groupadd hex && useradd -p $(openssl passwd -crypt hex) -m -g hex -G sudo hex
 RUN echo 'hex ALL=NOPASSWD: ALL' >> /etc/sudoers
 
-COPY .bash_aliases /root
+COPY .bashrc /root
 COPY .gitconfig /root
 COPY .vimrc /root
 
 USER hex
 WORKDIR /home/hex
 
-COPY --chown=hex:hex .bash_aliases .gitconfig .vimrc /home/hex/
+COPY --chown=hex:hex .bashrc .gitconfig .vimrc /home/hex/
