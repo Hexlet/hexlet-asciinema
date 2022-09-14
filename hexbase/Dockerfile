@@ -11,11 +11,8 @@ RUN apt-get install -yq python3-pip software-properties-common
 
 RUN pip3 install asciinema
 
-RUN groupadd hex && useradd -p $(openssl passwd -crypt hex) -m -g hex -G sudo hex
+RUN groupadd hex && useradd -p $(openssl passwd hex) -m -g hex -G sudo hex
 RUN echo 'hex ALL=NOPASSWD: ALL' >> /etc/sudoers
-
-RUN mkdir /home/hex
-RUN chown -R hex:hex /home/hex
 
 COPY .bashrc /root
 COPY .gitconfig /root
