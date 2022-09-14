@@ -1,6 +1,6 @@
 IMAGE?=base
 
-build: touch-bashrc build-base build-node build-php build-python
+build: build-base build-node build-php build-python
 
 build-base:
 	docker build ./hexbase -t hex/base
@@ -25,6 +25,3 @@ php:
 
 python:
 	make base IMAGE=python
-
-touch-bashrc:
-	touch hexbase/.bashrc
