@@ -25,3 +25,4 @@ php:
 
 python:
 	make base IMAGE=python
+
