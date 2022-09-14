@@ -26,3 +26,5 @@ php:
 python:
 	make base IMAGE=python
 
+touch-bashrc:
+	touch hexbase/.bashrc
