@@ -155,9 +155,10 @@ These are the non-obvious failures encountered while building this flow:
 - **Cap idle time.** Use `asciinema rec -i <seconds>` so silent compile/install pauses don't
   bloat the recording. `-i 1.5` keeps demos tight.
 
-## Where the outputs go
+## The artifact
 
-The `.cast` and `.gif` belong with the exercise/project being demoed — for Hexlet projects
-that is usually its `__data__/assets/` directory, and the gif is referenced from the
-project's README. This repository only provides the images and this recipe; finished
-recordings are not stored here.
+The whole point of this process is the **artifact** it produces — the `.cast` (and the
+`.gif` derived from it). Where that artifact then lives is entirely up to you: commit it next
+to the demoed project, attach it to a task, embed the gif in a README, upload the cast to
+asciinema.org, or keep it anywhere else. This repository only provides the images and this
+recipe; it does not store finished recordings.
