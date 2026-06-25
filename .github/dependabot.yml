@@ -1,0 +1,13 @@
+version: 2
+updates:
+  # GitHub Actions, используемые в .github/workflows/
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Базовый Docker-образ (единственный с образом из реестра)
+  - package-ecosystem: "docker"
+    directory: "/hexbase"
+    schedule:
+      interval: "weekly"
