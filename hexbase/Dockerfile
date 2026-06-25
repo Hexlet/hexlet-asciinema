@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 ENV TZ=Europe/Moscow
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
@@ -9,7 +9,7 @@ RUN apt-get update
 RUN apt-get install -yq sudo curl git ssh vim
 RUN apt-get install -yq python3-pip software-properties-common
 
-RUN pip3 install asciinema
+RUN pip3 install --break-system-packages asciinema
 
 RUN groupadd hex && useradd -p $(openssl passwd hex) -m -g hex -G sudo hex
 RUN echo 'hex ALL=NOPASSWD: ALL' >> /etc/sudoers

@@ -25,15 +25,16 @@ push/PR to `main`.
 ## Architecture
 
 - Images are named `hex/<lang>`. Every language image starts `FROM hex/base`, so `hexbase`
-  is the single place for shared setup: the `hex` non-root sudo user, Moscow timezone,
-  asciinema installed via pip, and the copied `.bashrc` / `.gitconfig` / `.vimrc`.
+  is the single place for shared setup: the Ubuntu 26.04 base (Python 3.14), the `hex`
+  non-root sudo user, Moscow timezone, asciinema installed via pip (with
+  `--break-system-packages`, since 26.04 enforces PEP 668), and the copied
+  `.bashrc` / `.gitconfig` / `.vimrc`.
 - `hexbase/Dockerfile` copies those dotfiles to BOTH `/root` and `/home/hex` — keep both
   in sync when changing shell/git/vim config.
-- Each language image adds exactly one toolchain: `hex_node` (Node 18 via NodeSource),
-  `hex_nvm` (nvm + LTS Node), `hex_php` (PHP via ppa:ondrej/php + Composer + zip/curl/mbstring/xml),
-  `hex_python` (Poetry with `POETRY_VIRTUALENVS_IN_PROJECT=true`).
-- `hex_nvm` is a separate image and is NOT built by `make build`. If it should be part of
-  the standard flow, add a `build-nvm` target and a run target.
+- Each language image adds exactly one toolchain: `hex_node` (Node 26 via NodeSource),
+  `hex_php` (PHP 8.5 from the Ubuntu repos + Composer + zip/curl/mbstring/xml),
+  `hex_python` (Poetry with `POETRY_VIRTUALENVS_IN_PROJECT=true`),
+  `hex_go` (Go toolchain from the official go.dev tarball, pinned via the `GO_VERSION` build arg).
 
 ## Conventions
 
