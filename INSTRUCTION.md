@@ -144,13 +144,13 @@ These are the non-obvious failures encountered while building this flow:
 - **Offline dependencies.** The container often cannot reach package registries
   (proxy.golang.org, npm, Packagist, PyPI), so an in-container build hangs on download.
   Pre-fetch on the host and mount the cache, forcing the tool offline:
-  - **Go** (verified): `go mod download` on the host, then mount
-    `~/go/pkg/mod` → `/home/hex/go/pkg/mod:ro` and set `GOPROXY=off` (with `GOFLAGS=-mod=mod`).
-  - **node / php / python** (same principle, adapt accordingly): mount the host package cache
-    (`~/.npm`, Composer's `~/.cache/composer`, pip/Poetry cache) into the corresponding
-    location in the container, or vendor the dependencies into the mounted source, and enable
-    that tool's offline flag (e.g. `npm ci --offline`, `composer install --no-interaction`,
-    `poetry install` against a populated cache).
+    - **Go** (verified): `go mod download` on the host, then mount
+  `~/go/pkg/mod` → `/home/hex/go/pkg/mod:ro` and set `GOPROXY=off` (with `GOFLAGS=-mod=mod`).
+    - **node / php / python** (same principle, adapt accordingly): mount the host package cache
+  (`~/.npm`, Composer's `~/.cache/composer`, pip/Poetry cache) into the corresponding
+  location in the container, or vendor the dependencies into the mounted source, and enable
+  that tool's offline flag (e.g. `npm ci --offline`, `composer install --no-interaction`,
+  `poetry install` against a populated cache).
 
 - **Cap idle time.** Use `asciinema rec -i <seconds>` so silent compile/install pauses don't
   bloat the recording. `-i 1.5` keeps demos tight.
