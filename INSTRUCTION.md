@@ -6,7 +6,9 @@ The idea: a small **driver script** simulates human typing and runs the demo com
 
 > For a quick one-off, you can still record interactively: `make <lang>` drops you into a shell where you run `asciinema rec` by hand. This document is about the scripted flow.
 
-The example below records the `hexlet-path-size` Go utility — the one verified case. The flow is the same for any `hex/<lang>`; only the toolchain and the offline-dependency handling differ (see [Gotchas](#gotchas)).
+The example below records the `hexlet-path-size` Go utility. The flow is the same for any `hex/<lang>`; only the toolchain and the offline-dependency handling differ (see [Gotchas](#gotchas)).
+
+Two images have been used for a real recording. `hex/go` covers the case with dependencies, and it is the example below. `hex/node` covers a project that has none, so nothing had to be installed and the container needed no network at all — see [Gotchas](#gotchas). `hex/php` and `hex/python` are built the same way but have never produced a recording.
 
 ## Prerequisites
 
@@ -124,7 +126,8 @@ These are the non-obvious failures encountered while building this flow:
 - **Offline dependencies.** The container often cannot reach package registries (proxy.golang.org, npm, Packagist, PyPI), so an in-container build hangs on download. Pre-fetch on the host and mount the cache, forcing the tool offline:
     - **Go** (verified): `go mod download` on the host, then mount
   `~/go/pkg/mod` → `/home/hex/go/pkg/mod:ro` and set `GOPROXY=off` (with `GOFLAGS=-mod=mod`).
-    - **node / php / python** (same principle, adapt accordingly): mount the host package cache
+    - **node, when the project has no dependencies** (verified): skip the problem instead of solving it. Mount the sources read-only, copy them inside the container and run the entry point. Nothing is installed, so the container needs no registry and no cache mount. This is how `ai_engineer_file_automation_project` was recorded: its `package.json` carries eslint in `devDependencies` and nothing else.
+    - **node / php / python, when the project does have dependencies** (not verified): mount the host package cache
   (`~/.npm`, Composer's `~/.cache/composer`, pip/Poetry cache) into the corresponding location in the container, or vendor the dependencies into the mounted source, and enable that tool's offline flag (e.g. `npm ci --offline`, `composer install --no-interaction`, `poetry install` against a populated cache).
 
 - **Cap idle time.** Use `asciinema rec -i <seconds>` so silent compile/install pauses don't bloat the recording. `-i 1.5` keeps demos tight.
